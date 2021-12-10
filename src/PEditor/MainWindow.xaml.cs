@@ -67,7 +67,7 @@ namespace PEditor
             }
 
             // Set all FileInfo fields.
-            FileInfo.SetFileInfo(_peFile);
+            FileInfo.SetFileInfo(_peFile, file);
 
             // Set the DOS header fields
             DosNtHeader.SetDosHeader(_peFile);

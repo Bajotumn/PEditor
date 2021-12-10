@@ -15,10 +15,9 @@ namespace PEditor
             InitializeComponent();
         }
 
-        public void SetFileInfo(PeFile peFile)
+        public void SetFileInfo(PeFile peFile, string filePath)
         {
-            // TODO
-            // tbLocation.Text = peFile.FileLocation;
+            tbLocation.Text = filePath;
             tbSize.Text = $"{peFile.FileSize} Bytes";
             tbMD5.Text = peFile.Md5;
             tbSHA1.Text = peFile.Sha1;
