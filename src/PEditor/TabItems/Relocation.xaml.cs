@@ -44,8 +44,7 @@ namespace PEditor.TabItems
             _peFile = peFile;
             lbRelocationEntries.Items.Clear();
             lbRelocTypeOffsets.Items.Clear();
-            // TODO
-            // if (!peFile.HasValidRelocDir)
+
             if (!peFile.ImageRelocationDirectory.Any())
                 return;
 
