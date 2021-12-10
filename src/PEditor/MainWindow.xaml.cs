@@ -16,7 +16,7 @@ limitations under the License.
 *************************************************************************/
 
 using System;
-using System.Deployment.Application;
+using System.Reflection;
 using System.Windows;
 using Microsoft.Win32;
 using PeNet;
@@ -60,13 +60,11 @@ namespace PEditor
             tbStatusBarLocation.Text = file;
 
             // Parse the PE file
-            if (!PeFile.IsPEFile(file))
+            if (!PeFile.TryParse(file, out _peFile))
             {
                 ShowInvalidPeFileMsgBox();
                 return;
             }
-
-            _peFile = new PeFile(file);
 
             // Set all FileInfo fields.
             FileInfo.SetFileInfo(_peFile);
@@ -130,12 +128,10 @@ namespace PEditor
 
         private void MenuHelp_Click(object sender, RoutedEventArgs e)
         {
-            var version = "DEBUG";
-
-            if (ApplicationDeployment.IsNetworkDeployed)
-            {
-                version = ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4);
-            }
+            var version = Assembly
+                .GetEntryAssembly()
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+                .InformationalVersion;
 
             MessageBox.Show($"PEditor\nVersion {version}\nCopyright by Secana 2016", "About");
         }

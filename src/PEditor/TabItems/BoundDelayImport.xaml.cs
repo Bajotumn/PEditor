@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 using PeNet;
-using PeNet.Utilities;
 
 namespace PEditor.TabItems
 {
@@ -47,14 +46,14 @@ namespace PEditor.TabItems
                 return;
 
             // Set
-            grAttr.Text = peFile.ImageDelayImportDescriptor.grAttrs.ToHexString();
-            szName.Text = peFile.ImageDelayImportDescriptor.szName.ToHexString();
-            phmod.Text = peFile.ImageDelayImportDescriptor.phmod.ToHexString();
-            pIAT.Text = peFile.ImageDelayImportDescriptor.pIAT.ToHexString();
-            pINT.Text = peFile.ImageDelayImportDescriptor.pINT.ToHexString();
-            pBoundIAT.Text = peFile.ImageDelayImportDescriptor.pBoundIAT.ToHexString();
-            pUnloadIAT.Text = peFile.ImageDelayImportDescriptor.pUnloadIAT.ToHexString();
-            dwTimeStamp.Text = peFile.ImageDelayImportDescriptor.dwTimeStamp.ToHexString();
+            grAttr.Text = peFile.ImageDelayImportDescriptor.GrAttrs.ToHexString();
+            szName.Text = peFile.ImageDelayImportDescriptor.SzName.ToHexString();
+            phmod.Text = peFile.ImageDelayImportDescriptor.Phmod.ToHexString();
+            pIAT.Text = peFile.ImageDelayImportDescriptor.PIat.ToHexString();
+            pINT.Text = peFile.ImageDelayImportDescriptor.PInt.ToHexString();
+            pBoundIAT.Text = peFile.ImageDelayImportDescriptor.PBoundIAT.ToHexString();
+            pUnloadIAT.Text = peFile.ImageDelayImportDescriptor.PUnloadIAT.ToHexString();
+            dwTimeStamp.Text = peFile.ImageDelayImportDescriptor.DwTimeStamp.ToHexString();
 
         }
     }

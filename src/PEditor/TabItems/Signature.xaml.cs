@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 using PeNet;
-using PeNet.Utilities;
 
 namespace PEditor.TabItems
 {
@@ -43,28 +42,28 @@ namespace PEditor.TabItems
             if (!peFile.IsSigned)
                 return;
 
-            cbCertIsValid.IsChecked = peFile.IsSignatureValid;
+            cbCertIsValid.IsChecked = peFile.Authenticode.IsAuthenticodeValid;
             cbCertIsSigned.IsChecked = peFile.IsSigned;
-            cbCertIsValidChain.IsChecked = peFile.IsValidCertChain(true);
-            tbCertLength.Text = peFile.WinCertificate.dwLength.ToHexString();
-            tbCertRevision.Text = peFile.WinCertificate.wRevision.ToHexString();
-            tbCertType.Text = peFile.WinCertificate.wCertificateType.ToHexString();
+            cbCertIsValidChain.IsChecked = peFile.HasValidCertChain(true);
+            tbCertLength.Text = peFile.WinCertificate.DwLength.ToHexString();
+            tbCertRevision.Text = peFile.WinCertificate.WRevision.ToHexString();
+            tbCertType.Text = peFile.WinCertificate.WCertificateType.ToString();
 
-            cbX509Archived.IsChecked = peFile.PKCS7.Archived;
-            cbX509HasPrivateKey.IsChecked = peFile.PKCS7.HasPrivateKey;
-            tbX509FriendlyName.Text = peFile.PKCS7.FriendlyName;
-            tbX509Issuer.Text = peFile.PKCS7.Issuer.Replace(", ", "\n");
-            tbX509Thumbprint.Text = peFile.PKCS7.Thumbprint;
-            tbX509Version.Text = peFile.PKCS7.Version.ToString();
-            tbX509NotBefore.Text = peFile.PKCS7.NotBefore.ToLongDateString();
-            tbX509NotAfter.Text = peFile.PKCS7.NotAfter.ToLongDateString();
-            tbX509SerialNumber.Text = peFile.PKCS7.SerialNumber;
-            tbX509SignatureAlgorithm.Text = peFile.PKCS7.SignatureAlgorithm.FriendlyName;
-            tbX509Subject.Text = peFile.PKCS7.Subject.Replace(", ", "\n");
-            tbX509PublicKey.Text = peFile.PKCS7.PublicKey.EncodedKeyValue.Format(true);
-            tbX509PrivateKey.Text = peFile.PKCS7.PrivateKey?.ToXmlString(false);
+            cbX509Archived.IsChecked = peFile.Pkcs7.Archived;
+            cbX509HasPrivateKey.IsChecked = peFile.Pkcs7.HasPrivateKey;
+            tbX509FriendlyName.Text = peFile.Pkcs7.FriendlyName;
+            tbX509Issuer.Text = peFile.Pkcs7.Issuer.Replace(", ", "\n");
+            tbX509Thumbprint.Text = peFile.Pkcs7.Thumbprint;
+            tbX509Version.Text = peFile.Pkcs7.Version.ToString();
+            tbX509NotBefore.Text = peFile.Pkcs7.NotBefore.ToLongDateString();
+            tbX509NotAfter.Text = peFile.Pkcs7.NotAfter.ToLongDateString();
+            tbX509SerialNumber.Text = peFile.Pkcs7.SerialNumber;
+            tbX509SignatureAlgorithm.Text = peFile.Pkcs7.SignatureAlgorithm.FriendlyName;
+            tbX509Subject.Text = peFile.Pkcs7.Subject.Replace(", ", "\n");
+            tbX509PublicKey.Text = peFile.Pkcs7.PublicKey.EncodedKeyValue.Format(true);
+            tbX509PrivateKey.Text = peFile.Pkcs7.PrivateKey?.ToXmlString(false);
 
-            foreach (var x509Extension in peFile.PKCS7.Extensions)
+            foreach (var x509Extension in peFile.Pkcs7.Extensions)
             {
                 tbX509Extensions.Text += $"{x509Extension.Format(true)}\n";
             }

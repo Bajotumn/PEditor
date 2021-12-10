@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Windows.Controls;
 using PeNet;
-using PeNet.Utilities;
 
 namespace PEditor.TabItems
 {
@@ -54,7 +53,7 @@ namespace PEditor.TabItems
                 lbUnwindCode.Items.Add(new
                 {
                     CodeOffset = uc.CodeOffset.ToHexString(),
-                    UnwindOp = uc.UnwindOp.ToHexString(),
+                    UnwindOp = uc.UnwindOp.ToString(),
                     FrameOffset = uc.FrameOffset.ToHexString()
                 });
             }

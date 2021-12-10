@@ -17,11 +17,12 @@ namespace PEditor
 
         public void SetFileInfo(PeFile peFile)
         {
-            tbLocation.Text = peFile.FileLocation;
+            // TODO
+            // tbLocation.Text = peFile.FileLocation;
             tbSize.Text = $"{peFile.FileSize} Bytes";
-            tbMD5.Text = peFile.MD5;
-            tbSHA1.Text = peFile.SHA1;
-            tbSHA256.Text = peFile.SHA256;
+            tbMD5.Text = peFile.Md5;
+            tbSHA1.Text = peFile.Sha1;
+            tbSHA256.Text = peFile.Sha256;
             tbImpHash.Text = peFile.ImpHash;
         }
 

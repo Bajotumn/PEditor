@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+
 using PeNet;
-using PeNet.Structures;
-using PeNet.Utilities;
+using PeNet.Header.Pe;
 
 namespace PEditor.TabItems
 {
@@ -29,7 +29,7 @@ namespace PEditor.TabItems
 
             // Get the resource data entry. If no data entry is give, return.
             var tree = sender as TreeView;
-            var directoryEntry = (tree?.SelectedItem as MyTreeViewItem<IMAGE_RESOURCE_DIRECTORY_ENTRY>)?.MyItem;
+            var directoryEntry = (tree?.SelectedItem as MyTreeViewItem<ImageResourceDirectoryEntry>)?.MyItem;
             if (directoryEntry?.ResourceDataEntry == null)
                 return;
 
@@ -40,13 +40,16 @@ namespace PEditor.TabItems
             tbReserved.Text = directoryEntry.ResourceDataEntry.Reserved.ToHexString();
 
             // Build the hex output
-            var rawOffset = directoryEntry.ResourceDataEntry.OffsetToData.SafeRVAtoFileMapping(_peFile.ImageSectionHeaders);
+            var rawOffset = directoryEntry.ResourceDataEntry.OffsetToData.OffsetToRva(_peFile.ImageSectionHeaders);
 
             if (rawOffset == null)
                 tbResource.Text = "invalid";
             else
-                tbResource.Text = string.Join(" ",
-                    _peFile.Buff.ToHexString(rawOffset.Value, directoryEntry.ResourceDataEntry.Size1));
+                tbResource.Text = _peFile
+                    .RawFile
+                    .AsSpan(rawOffset, directoryEntry.ResourceDataEntry.Size1)
+                    .ToArray()
+                    .ToHexString();
         }
 
         public void SetResources(PeFile peFile)
@@ -62,7 +65,7 @@ namespace PEditor.TabItems
             if (rd == null)
                 return;
 
-            var root = new MyTreeViewItem<IMAGE_RESOURCE_DIRECTORY_ENTRY>(null)
+            var root = new MyTreeViewItem<ImageResourceDirectoryEntry>(null)
             {
                 Header = "Resource Directory"
             };
@@ -70,34 +73,26 @@ namespace PEditor.TabItems
             // Type
             foreach (var de in rd.DirectoryEntries)
             {
-                MyTreeViewItem<IMAGE_RESOURCE_DIRECTORY_ENTRY> item = null;
-                if (de.IsIdEntry)
+                MyTreeViewItem<ImageResourceDirectoryEntry> item = null;
+
+                item = new MyTreeViewItem<ImageResourceDirectoryEntry>(de)
                 {
-                    item = new MyTreeViewItem<IMAGE_RESOURCE_DIRECTORY_ENTRY>(de)
-                    {
-                        Header = PeNet.Utilities.FlagResolver.ResolveResourceId(de.ID)
-                    };
-                }
-                else if (de.IsNamedEntry)
-                {
-                    item = new MyTreeViewItem<IMAGE_RESOURCE_DIRECTORY_ENTRY>(de)
-                    {
-                        Header = de.ResolvedName
-                    };
-                }
+                    Header = de.NameResolved
+                };
+
 
                 // name/IDs
                 foreach (var de2 in de.ResourceDirectory.DirectoryEntries)
                 {
-                    MyTreeViewItem<IMAGE_RESOURCE_DIRECTORY_ENTRY> item2 = null;
-                    item2 = new MyTreeViewItem<IMAGE_RESOURCE_DIRECTORY_ENTRY>(de2)
+                    MyTreeViewItem<ImageResourceDirectoryEntry> item2 = null;
+                    item2 = new MyTreeViewItem<ImageResourceDirectoryEntry>(de2)
                     {
                         Header = de2.ID.ToString()
                     };
 
                     foreach (var de3 in de2.ResourceDirectory.DirectoryEntries)
                     {
-                        item2.Items.Add(new MyTreeViewItem<IMAGE_RESOURCE_DIRECTORY_ENTRY>(de3)
+                        item2.Items.Add(new MyTreeViewItem<ImageResourceDirectoryEntry>(de3)
                         {
                             Header = de3.ID.ToHexString()
                         });

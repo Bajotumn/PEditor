@@ -1,6 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Linq;
+using System.Windows.Controls;
 using PeNet;
-using PeNet.Utilities;
 
 namespace PEditor.TabItems
 {
@@ -20,14 +20,14 @@ namespace PEditor.TabItems
             var machine = fileHeader.Machine;
             var characteristics = fileHeader.Characteristics;
 
-            tbMachine.Text = $"{machine.ToHexString()} <-> {PeNet.Utilities.FlagResolver.ResolveTargetMachine(machine)}";
+            tbMachine.Text = $"{((ulong)machine).ToHexString()} <-> {machine}";
             tbNumberOfSections.Text = fileHeader.NumberOfSections.ToHexString();
             tbTimeDateStamp.Text = fileHeader.TimeDateStamp.ToHexString();
             tbPointerToSymbolTable.Text = fileHeader.PointerToSymbolTable.ToHexString();
             tbNumberOfSymbols.Text = fileHeader.NumberOfSymbols.ToHexString();
             tbSizeOfOptionalHeader.Text = fileHeader.SizeOfOptionalHeader.ToHexString();
             tbCharacteristics.Text =
-                $"{characteristics.ToHexString()}\n\n{PeNet.Utilities.FlagResolver.ResolveFileCharacteristics(characteristics)}";
+                $"{((ulong)characteristics).ToHexString()}\n\n{characteristics}";
         }
 
         public void SetDebug(PeFile peFile)
@@ -46,14 +46,14 @@ namespace PEditor.TabItems
                 return;
 
             // Set
-            tbDebugCharacteristics.Text = peFile.ImageDebugDirectory.Characteristics.ToHexString();
-            tbDebugTimeDateStamp.Text = peFile.ImageDebugDirectory.TimeDateStamp.ToHexString();
-            tbDebugMajorVersion.Text = peFile.ImageDebugDirectory.MajorVersion.ToHexString();
-            tbDebugMinorVersion.Text = peFile.ImageDebugDirectory.MinorVersion.ToHexString();
-            tbDebugType.Text = peFile.ImageDebugDirectory.Type.ToHexString();
-            tbDebugSizeOfData.Text = peFile.ImageDebugDirectory.SizeOfData.ToHexString();
-            tbDebugAddressOfRawData.Text = peFile.ImageDebugDirectory.AddressOfRawData.ToHexString();
-            tbDebugPointerToRawData.Text = peFile.ImageDebugDirectory.PointerToRawData.ToHexString();
+            tbDebugCharacteristics.Text = peFile.ImageDebugDirectory.First().Characteristics.ToString();
+            tbDebugTimeDateStamp.Text = peFile.ImageDebugDirectory.First().TimeDateStamp.ToHexString();
+            tbDebugMajorVersion.Text = peFile.ImageDebugDirectory.First().MajorVersion.ToHexString();
+            tbDebugMinorVersion.Text = peFile.ImageDebugDirectory.First().MinorVersion.ToHexString();
+            tbDebugType.Text = peFile.ImageDebugDirectory.First().Type.ToHexString();
+            tbDebugSizeOfData.Text = peFile.ImageDebugDirectory.First().SizeOfData.ToHexString();
+            tbDebugAddressOfRawData.Text = peFile.ImageDebugDirectory.First().AddressOfRawData.ToHexString();
+            tbDebugPointerToRawData.Text = peFile.ImageDebugDirectory.First().PointerToRawData.ToHexString();
         }
     }
 }

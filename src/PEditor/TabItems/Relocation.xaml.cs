@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Windows.Controls;
 using PeNet;
-using PeNet.Utilities;
 
 namespace PEditor.TabItems
 {
@@ -45,8 +44,9 @@ namespace PEditor.TabItems
             _peFile = peFile;
             lbRelocationEntries.Items.Clear();
             lbRelocTypeOffsets.Items.Clear();
-
-            if (!peFile.HasValidRelocDir)
+            // TODO
+            // if (!peFile.HasValidRelocDir)
+            if (!peFile.ImageRelocationDirectory.Any())
                 return;
 
             foreach (var reloc in peFile.ImageRelocationDirectory)

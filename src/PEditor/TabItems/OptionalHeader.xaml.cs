@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 using PeNet;
-using PeNet.Utilities;
 
 namespace PEditor.TabItems
 {
@@ -18,7 +17,7 @@ namespace PEditor.TabItems
         {
             var oh = peFile.ImageNtHeaders.OptionalHeader;
 
-            tbMagic.Text = oh.Magic.ToHexString();
+            tbMagic.Text = oh.Magic.ToString();
             tbMajorLinkerVersion.Text = oh.MajorLinkerVersion.ToHexString();
             tbMinorLinkerVersion.Text = oh.MinorLinkerVersion.ToHexString();
             tbSizeOfCode.Text = oh.SizeOfCode.ToHexString();
@@ -40,8 +39,8 @@ namespace PEditor.TabItems
             tbSizeOfImage.Text = oh.SizeOfImage.ToHexString();
             tbSizeOfHeaders.Text = oh.SizeOfHeaders.ToHexString();
             tbCheckSum.Text = oh.CheckSum.ToHexString();
-            tbSubsystem.Text = oh.Subsystem.ToHexString();
-            tbDllCharacteristics.Text = oh.DllCharacteristics.ToHexString();
+            tbSubsystem.Text = oh.Subsystem.ToString();
+            tbDllCharacteristics.Text = oh.DllCharacteristics.ToString();
             tbSizeOfStackReserve.Text = oh.SizeOfStackReserve.ToHexString();
             tbSizeOfStackCommit.Text = oh.SizeOfStackCommit.ToHexString();
             tbSizeOfHeapReserve.Text = oh.SizeOfHeapReserve.ToHexString();

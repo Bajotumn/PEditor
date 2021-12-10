@@ -17,7 +17,6 @@ limitations under the License.
 
 using System.Windows.Controls;
 using PeNet;
-using PeNet.Utilities;
 
 namespace PEditor.TabItems
 {
@@ -79,7 +78,7 @@ namespace PEditor.TabItems
             DeCommitFreeBlockThreshold.Text = peFile.ImageLoadConfigDirectory.DeCommitFreeBlockThreshold.ToHexString();
             LockPrefixTable.Text = peFile.ImageLoadConfigDirectory.LockPrefixTable.ToHexString();
             MaximumAllocationSize.Text = peFile.ImageLoadConfigDirectory.MaximumAllocationSize.ToHexString();
-            VirtualMemoryThreshold.Text = peFile.ImageLoadConfigDirectory.VirtualMemoryThershold.ToHexString();
+            VirtualMemoryThreshold.Text = peFile.ImageLoadConfigDirectory.VirtualMemoryThreshold.ToHexString();
             ProcessHeapFlags.Text = peFile.ImageLoadConfigDirectory.ProcessHeapFlags.ToHexString();
             ProcessAffinityMask.Text = peFile.ImageLoadConfigDirectory.ProcessAffinityMask.ToHexString();
             CSDVersion.Text = peFile.ImageLoadConfigDirectory.CSDVersion.ToHexString();

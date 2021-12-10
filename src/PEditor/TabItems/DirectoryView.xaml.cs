@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 using PeNet;
-using PeNet.Utilities;
 
 namespace PEditor.TabItems
 {
@@ -30,7 +29,7 @@ namespace PEditor.TabItems
 
         private string GetDirectoryNameByIndex(int index)
         {
-            return ((PeNet.Constants.DataDirectoryIndex) index).ToString();
+            return ((PeNet.Header.Pe.DataDirectoryType)index).ToString();
         }
     }
 }

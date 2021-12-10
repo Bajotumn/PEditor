@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Controls;
 using PeNet;
+using PeNet.Header.Pe;
 
 namespace PEditor.TabItems
 {
